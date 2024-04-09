@@ -1,0 +1,15 @@
+[package]
+name = "grpcping-rs"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+grpcio = { version = "0.10.4", default-features = false, features = [
+    "openssl-vendored",
+] }
+
+grpcio-health = { version = "0.10.4", default-features = false, features = [
+    "protobuf-codec",
+] }
