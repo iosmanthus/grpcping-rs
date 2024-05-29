@@ -14,14 +14,11 @@ fn main() {
     let env = Arc::new(Environment::new(1));
 
     println!("grpc: connect to {}", addr);
+
     let channel = ChannelBuilder::new(env.clone()).connect(addr);
     let client = HealthClient::new(channel);
     let resp = client.check(&HealthCheckRequest::new());
-    if resp.is_ok() {
-        println!("ok");
-    } else {
-        println!("resp: {:?}", resp);
-    }
+    println!("resp: {:?}", resp);
 
     println!("grpc+tls: connect to {}", addr);
     let ca = load_key(ca_path);
@@ -34,10 +31,5 @@ fn main() {
     let channel = ChannelBuilder::new(env).secure_connect(addr, cred);
     let client = HealthClient::new(channel);
     let resp = client.check(&HealthCheckRequest::new());
-    if resp.is_ok() {
-        println!("ok");
-    } else {
-        println!("resp: {:?}", resp);
-    }
-
+    println!("resp: {:?}", resp);
 }
