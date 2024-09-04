@@ -18,7 +18,10 @@ fn main() {
     let channel = ChannelBuilder::new(env.clone()).connect(addr);
     let client = HealthClient::new(channel);
     let resp = client.check(&HealthCheckRequest::new());
-    println!("resp: {:?}", resp);
+    match resp {
+        Ok(resp) => println!("OK!"),
+        Err(e) => println!("err: {:?}", e),
+    }
 
     println!("grpc+tls: connect to {}", addr);
     let ca = load_key(ca_path);
@@ -31,5 +34,8 @@ fn main() {
     let channel = ChannelBuilder::new(env).secure_connect(addr, cred);
     let client = HealthClient::new(channel);
     let resp = client.check(&HealthCheckRequest::new());
-    println!("resp: {:?}", resp);
+    match resp {
+        Ok(resp) => println!("OK!"),
+        Err(e) => println!("err: {:?}", e),
+    }
 }
